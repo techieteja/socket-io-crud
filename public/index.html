@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Hello world</title>
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+      <script src = "/socket.io/socket.io.js"></script>
+   </head>
+   <body>
+       <form id="form" action="" method="POST">
+            <input id="input" id="Input" type="text" name="name">
+            <input id="createPost" type="submit">
+       </form>
+       <ul id="print"></ul>       
+
+       <script>
+            var socket = io();
+
+            var form = document.getElementById('form');
+            var input = document.getElementById('input');
+
+            $(form).on('submit', function(e) {
+            e.preventDefault();
+
+            // Create Post
+            if (input.value) {
+                socket.emit('Create a post', input.value);
+                input.value = '';                
+            }
+            });
+
+            // Read all posts
+            socket.on('Show all posts', (items) => {  
+                var posts = JSON.parse(items);
+                for (i = 0; i < posts.length; i++) {
+                    // Get initial innerHTML as empty else you would get undefined error
+                    var content = document.getElementById("print").innerHTML;
+                    content += '<li id="'+posts[i]._id+'">' + posts[i].textPost + '</li>';
+                    document.getElementById("print").innerHTML = content;                    
+                }
+            }); 
+
+            // Append latest data       
+            $(document).ready(function(){
+                $("#createPost").click(function(){
+                    $('#print').append("<li>"+input.value+"</li>");
+                });
+            });
+       </script>
+   </body>
+</html>

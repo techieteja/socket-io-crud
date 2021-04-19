@@ -1,0 +1,19 @@
+{
+  "name": "socket-io-crud",
+  "version": "1.0.0",
+  "description": "CRUD Operations using Socket.Io, NodeJS & Mongodb",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "author": "Teja Sundeep",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongodb": "^3.6.6",
+    "mongoose": "^5.12.4",
+    "nodemon": "^2.0.7",
+    "socket.io": "^4.0.1"
+  }
+}
